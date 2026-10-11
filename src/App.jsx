@@ -1,195 +1,157 @@
-
-import './App.css';
-
-const destinations = [
-  {
-    number: '01',
-    name: 'KolvIQ Workspace',
-    category: 'DIGITAL TOOLS',
-    description:
-      'A more organised way to manage insurance work, keep track of responsibilities, and bring clarity to everyday workflows.',
-    link: 'https://app.kolviq.com',
-    className: 'workspace',
-  },
-  {
-    number: '02',
-    name: 'Risk Unpuzzled',
-    category: 'INSURANCE & RISK PUBLICATION',
-    description:
-      'Making insurance, claims, and everyday risk easier to understand through practical insights and clear explanations.',
-    link: 'https://riskunpuzzled.kolviq.com',
-    className: 'publication',
-  },
-];
+import { useEffect, useRef } from 'react'
+import './App.css'
 
 function App() {
-  return (
-    <main>
-      <header className="site-header">
-        <a className="brand" href="#home" aria-label="KolvIQ home">
-          <span className="brand-mark">K</span>
-          <span>Kolv<span className="brand-iq">IQ</span></span>
-        </a>
+  const heroRef = useRef(null)
+  const phoneRef = useRef(null)
 
-        <nav aria-label="Main navigation">
-          <a href="#about">About</a>
-          <a href="#ventures">Our ventures</a>
-          <a className="nav-contact" href="mailto:hello@kolviq.com">
-            Get in touch <span aria-hidden="true">↗</span>
-          </a>
-        </nav>
+  useEffect(() => {
+    const hero = heroRef.current
+    const phone = phoneRef.current
+    const ok =
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+      window.matchMedia('(pointer:fine)').matches
+    if (!ok || !hero || !phone) return
+
+    const move = (e) => {
+      const x = e.clientX / window.innerWidth - 0.5
+      const y = e.clientY / window.innerHeight - 0.5
+      phone.style.transform = `rotateY(${-24 + x * 14}deg) rotateX(${5 - y * 10}deg) rotateZ(4deg)`
+    }
+    const leave = () => { phone.style.transform = '' }
+
+    hero.addEventListener('mousemove', move)
+    hero.addEventListener('mouseleave', leave)
+    return () => {
+      hero.removeEventListener('mousemove', move)
+      hero.removeEventListener('mouseleave', leave)
+    }
+  }, [])
+
+  return (
+    <>
+      <header className="hero" id="top" ref={heroRef}>
+        <div className="wrap">
+          <div className="hero-copy">
+            <a className="logo" href="#top" aria-label="KolvIQ home">
+              <svg viewBox="0 0 40 40" fill="none" stroke="#6B2D5C" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 4c5 3 9 3.5 13 3.8v10c0 9-5.5 14.5-13 18-7.5-3.5-13-9-13-18v-10c4-.3 8-.8 13-3.8z" />
+                <path d="M15 14v12M15 20l8-6M17.5 19 24 26" />
+              </svg>
+              <span>KOLVIQ<small>INSURANCE &middot; RISK &middot; TECH</small></span>
+            </a>
+            <h1>Making complex things <b>feel simpler</b></h1>
+            <a className="btn" href="#services">Learn more</a>
+          </div>
+
+          <div className="stage" aria-hidden="true">
+            <div className="phone" ref={phoneRef}>
+              <div className="phone-body">
+                <svg viewBox="0 0 132 150" fill="none">
+                  <defs>
+                    <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stopColor="#fff" />
+                      <stop offset="1" stopColor="#F0D0DF" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M66 4c14 8 36 11 58 13v52c0 40-26 64-58 77C34 133 8 109 8 69V17C30 15 52 12 66 4z" fill="url(#sg)" />
+                  <path d="M42 72l17 17 33-37" stroke="#6B2D5C" strokeWidth="11" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="bar b1"></span>
+                <span className="bar b2"></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </header>
 
-      <section className="hero" id="home">
-        <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="eyebrow-dot" />
-            CLARITY FOR COMPLEX WORK
-          </p>
-
-          <h1>
-            Making complex things
-            <span className="headline-accent"> feel simpler.</span>
-          </h1>
-
-          <p className="hero-description">
-            KolvIQ builds practical digital tools and useful resources that
-            bring clarity to work, insurance, and risk.
-          </p>
-
-          <div className="hero-actions">
-            <a className="button button-primary" href="#ventures">
-              Explore KolvIQ <span aria-hidden="true">↘</span>
-            </a>
-            <a className="text-link" href="#about">
-              Get to know us <span aria-hidden="true">→</span>
-            </a>
-          </div>
-
-          <div className="hero-note">
-            <span className="note-line" />
-            Thoughtfully built. Practically useful.
-          </div>
-        </div>
-
-        <div className="hero-art" aria-label="Abstract KolvIQ brand illustration">
-          <div className="art-orbit orbit-one" />
-          <div className="art-orbit orbit-two" />
-          <div className="art-orbit orbit-three" />
-          <div className="art-card card-back">
-            <span className="mini-label">IDEAS INTO ACTION</span>
-            <span className="card-line line-long" />
-            <span className="card-line line-short" />
-            <span className="card-symbol">↗</span>
-          </div>
-          <div className="art-card card-front">
-            <span className="art-monogram">K<span>IQ</span></span>
-            <span className="mini-label">THINK CLEARER.</span>
-            <span className="mini-label">WORK SMARTER.</span>
-          </div>
-          <span className="floating-dot dot-one" />
-          <span className="floating-dot dot-two" />
-          <span className="floating-dot dot-three" />
-        </div>
-
-        <div className="hero-index">
-          <span>01</span>
-          <span className="index-rule" />
-          <span>IDEAS, MADE USEFUL</span>
-        </div>
-      </section>
-
-      <section className="ventures section-wrap" id="ventures">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">WHAT WE'RE BUILDING</p>
-            <h2>Two ways to make sense of complexity.</h2>
-          </div>
-          <p className="section-intro">
-            From practical tools to accessible knowledge, each venture has a
-            simple purpose: make things easier to navigate.
-          </p>
-        </div>
-
-        <div className="venture-grid">
-          {destinations.map((item) => (
-            <article
-              className={`venture-card ${item.className}`}
-              key={item.name}
-              id={item.className === 'workspace' ? 'workspace' : 'risk-unpuzzled'}
-            >
-              <div className="venture-topline">
-                <span>{item.category}</span>
-                <span className="venture-number">{item.number}</span>
+      <main>
+        <section className="story" id="story">
+          <div className="wrap">
+            <div>
+              <h2>Our Story</h2>
+              <p>We believe that better understanding leads to better decisions. KolvIQ brings together thoughtful technology and accessible knowledge to simplify the way people work, learn, and navigate complexity.
+We are building tools and ideas that make information more useful, processes more intuitive, and everyday challenges easier to solve.</p>
+            </div>
+            <div className="duo" aria-hidden="true">
+              <div className="tile one">
+                <p className="label">KolvIQ Workspace</p>
+                <h3>Renewals, tracked</h3>
+                <div className="chips">
+                  <div className="chip">60 days <em>Notify</em></div>
+                  <div className="chip">30 days <em>Follow up</em></div>
+                  <div className="chip">14 days <em>Urgent</em></div>
+                </div>
               </div>
-
-              <div className="venture-icon" aria-hidden="true">
-                {item.className === 'workspace' ? '▦' : '✳'}
+              <div className="tile two">
+                <p className="label">Risk Unpuzzled</p>
+                <h3>The Traffic Trap</h3>
+                <div className="rule"></div>
+                <p>The big story, in plain language.</p>
+                <span className="read">Read issue 01</span>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <h3>{item.name}</h3>
-              <p>{item.description}</p>
-
-              <a className="venture-link" href={item.link}>
-                {item.className === 'workspace'
-                  ? 'Workspace overview'
-                  : 'Explore the publication'}
-                <span aria-hidden="true">↗</span>
+        <section className="services" id="services">
+          <div className="wrap">
+            <h2>Our Ecosystem</h2>
+            <div className="cards">
+              <a className="card" href="https://app.kolviq.com" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 44 44" aria-hidden="true">
+                  <rect x="5" y="6" width="34" height="32" rx="4" />
+                  <path d="M5 15h34M17 15v23" />
+                </svg>
+                <h3>KolvIQ Workspace</h3>
+                <p>Organise clients, policies, renewals and claims in one place.</p>
               </a>
+              <a className="card" href="https://riskunpuzzled.kolviq.com" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 44 44" aria-hidden="true">
+                  <path d="M9 6h26a2 2 0 0 1 2 2v28a2 2 0 0 1-2 2H9z" />
+                  <path d="M15 15h16M15 22h16M15 29h9" />
+                </svg>
+                <h3>Risk Unpuzzled</h3>
+                <p>Insurance and risk explained through real stories and clear language.</p>
+              </a>
+              <a className="card" href="#connect">
+                <svg viewBox="0 0 44 44" aria-hidden="true">
+                  <path d="M6 10a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H20l-9 8v-8h-1a4 4 0 0 1-4-4z" />
+                </svg>
+                <h3>Work With Us</h3>
+                <p>Partnerships, collaborations or just a question. Say hello.</p>
+              </a>
+            </div>
+          </div>
+        </section>
 
-              <span className="venture-decoration" aria-hidden="true">
-                {item.className === 'workspace' ? 'K' : 'R'}
-              </span>
-            </article>
-          ))}
+        <div className="band">
+          <div className="wrap">
+            <p><b>Knowledge</b> is only useful when people can understand it. We build the tools and the stories that <b>make that easier</b>.</p>
+          </div>
         </div>
-        <p className="availability-note">
-          Our ventures are evolving. More details and resources will be added
-          as they become available.
-        </p>
-      </section>
 
-      <section className="about-section" id="about">
-        <div className="about-inner">
-          <p className="eyebrow">A LITTLE ABOUT US</p>
-          <h2>
-            Less confusion.
-            <br />
-            More <span>understanding.</span>
-          </h2>
-          <p className="about-description">
-            We believe useful technology and clear information should make
-            everyday work easier, not more complicated. KolvIQ is building
-            thoughtful solutions around that belief, starting with insurance
-            workflows and accessible risk knowledge.
-          </p>
-          <a className="about-email" href="mailto:hello@kolviq.com">
-            Say hello <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-        <div className="about-stamp" aria-hidden="true">
-          <span>BUILT WITH</span>
-          <strong>CLARITY</strong>
-          <span>AND PURPOSE · KOLVIQ</span>
-        </div>
-      </section>
+        <section className="connect" id="connect">
+          <div className="wrap">
+            <div>
+              <h2>Connect with Us</h2>
+              <ul className="socials">
+                <li><a href="https://www.linkedin.com/company/kolviq/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://www.instagram.com/kolviqofficial/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              </ul>
+            </div>
+            <dl className="info">
+              <div><dt>Email Address</dt><dd><a href="mailto:hello@kolviq.com">hello@kolviq.com</a></dd></div>
+              <div><dt>Workspace</dt><dd><a href="https://app.kolviq.com" target="_blank" rel="noopener noreferrer">app.kolviq.com</a></dd></div>
+              <div><dt>Publication</dt><dd><a href="https://riskunpuzzled.kolviq.com" target="_blank" rel="noopener noreferrer">riskunpuzzled.kolviq.com</a></dd></div>
+            </dl>
+          </div>
+        </section>
+      </main>
 
-      <footer className="site-footer">
-        <a className="brand footer-brand" href="#home">
-          <span className="brand-mark">K</span>
-          <span>Kolv<span className="brand-iq">IQ</span></span>
-        </a>
-        <p>Clarity for complex work.</p>
-        <div className="footer-links">
-          <a href="#ventures">Our ventures</a>
-          <a href="mailto:hello@kolviq.com">Contact</a>
-        </div>
-        <span className="copyright">
-          © {new Date().getFullYear()} KolvIQ. All rights reserved.
-        </span>
-      </footer>
-    </main>
-  );
+      <footer>&copy; 2026 KolvIQ</footer>
+    </>
+  )
 }
 
-export default App;
+export default App
