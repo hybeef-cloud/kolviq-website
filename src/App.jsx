@@ -142,7 +142,6 @@ We are building tools and ideas that make information more useful, processes mor
             </div>
             <dl className="info">
               <div><dt>Email Address</dt><dd><a href="mailto:hello@kolviq.com">hello@kolviq.com</a></dd></div>
-              <div><dt>Workspace</dt><dd><a href="https://app.kolviq.com" target="_blank" rel="noopener noreferrer">app.kolviq.com</a></dd></div>
               <div><dt>Publication</dt><dd><a href="https://riskunpuzzled.kolviq.com" target="_blank" rel="noopener noreferrer">riskunpuzzled.kolviq.com</a></dd></div>
             </dl>
           </div>
